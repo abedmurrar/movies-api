@@ -1,24 +1,32 @@
+import { fail } from 'assert';
+
 var db = require('./db.config')
 
 class User {
 
-    static getUserById(id, success, failure) {
-        return db('users')
-            .select('*')
-            .where('id', id)
-            .then(success)
-            .catch(failure)
-    }
+	// changeUsername(){
+	// 	this.
+	// }
+
+	static getAllUsers(success,failure){
+		return db('users')
+		.select('*')
+		.then(success)
+		.catch(failure)
+	}
+
+	static getUserById(id, success, failure) {
+		return db('users')
+			.select('*')
+			.where('id', id)
+			.then(success)
+			.catch(failure)
+	}
+
+	static getUserByUsername(username,success,failure){
+		return db('users')
+			.select('*')
+			.where('username',username)
+	}
 }
-
-// var u = new User()
-//test
-User.getUserById(1, function (user) {
-        console.log(user)
-    },
-    function (error) {
-        console.error(error)
-    }
-)
-
 module.exports = User
