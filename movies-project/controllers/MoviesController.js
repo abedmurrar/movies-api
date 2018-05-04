@@ -39,12 +39,30 @@ class MovieController {
 				})
 			}, next)
 	}
+
+
 	static put(req, res, next) {
-		res.send('edit movie')
+		return Movie.update(req.params.id, req.body,
+			(data) => {
+				if (data.length > 0) {
+					return res.status(HttpStatus.NO_CONTENT).json({
+						message: 'Movie modified successfully'
+					})
+				}
+				return res.status(HttpStatus.NOT_ACCEPTABLE).json({
+					message: 'Movie modification failed'
+				})
+			}, next)
 	}
 
 	static delete(req, res, next) {
-		res.send('delete movie')
+		Movie.delete(req.params.id,
+			(data) => {
+				if (data) {
+
+				}
+
+			}, next)
 	}
 }
 
