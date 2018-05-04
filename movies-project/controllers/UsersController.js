@@ -45,7 +45,7 @@ class UserController {
 	static post(req, res, next) {
 		return User.add(req.body,
 			(data) => {
-				if (data.length > 1) {
+				if (data.length > 0) {
 					return res.status(HttpStatus.CREATED).json(req.body)
 				}
 				return res.status(HttpStatus.BAD_REQUEST).json({
