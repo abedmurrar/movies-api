@@ -90,7 +90,6 @@ class User {
 					username: username,
 					email: email,
 					password: salt
-
 				})
 				.then(success)
 				.catch(failure)
@@ -107,7 +106,7 @@ class User {
 		 */
 		return db('users')
 			// .select('*')
-			.select('username','email')
+			.select('username', 'email')
 			// .join()
 			.then(success)
 			.catch(failure)
@@ -119,7 +118,7 @@ class User {
 		 * (success) -> user object
 		 */
 		return db('users')
-			.select('username','email')
+			.select('username', 'email')
 			.where('id', '=', id)
 			.first()
 			.then(success)
@@ -136,9 +135,18 @@ class User {
 		 */
 
 		return db('users')
-			.select('*')
+			.select('username', 'email')
 			.where('username', '=', username)
 			.first()
+			.then(success)
+			.catch(failure)
+	}
+
+	static getFavorites(id, success, failure) {
+		return db('favorites')
+			.select('movies.id as id', 'name', 'category', 'age_rating', 'user_rating', 'year', 'language', 'poster_dir')
+			.where('user', id)
+			.join('movies', 'movies.id', '=', 'favorites.fav_movie')
 			.then(success)
 			.catch(failure)
 	}
@@ -168,4 +176,9 @@ function checkPassword(password) {
 
 }
 
-module.exports = User
+module.exports = {
+	User,
+	checkUsername,
+	checkEmail,
+	checkPassword
+}
