@@ -7,7 +7,7 @@ class UserController {
 			return User.getUserById(req.params.id,
 				(user) => {
 					if (user) {
-						return req.status(HttpStatus.OK).json(user)
+						return res.status(HttpStatus.OK).json(user)
 					}
 					return req.status(HttpStatus.NOT_FOUND).json({
 						message: 'No user with id ' + req.params.id
@@ -34,11 +34,9 @@ class UserController {
 		return User.add(req.body,
 			(data) => {
 				if (data.length > 1) {
-					return req.status(HttpStatus.CREATED).json({
-						message: 'User successfully added'
-					})
+					return res.status(HttpStatus.CREATED).json(req.body)
 				}
-				return req.status(HttpStatus.NOT_IMPLEMENTED).json({
+				return res.status(HttpStatus.NOT_ACCEPTABLE).json({
 					message: 'User creation failed'
 				})
 			}, next)
@@ -46,15 +44,37 @@ class UserController {
 
 	static put(req, res, next) {
 		session = req.session
-		res.send('edit user')
+		return User.update(req.params.id, req.body,
+			(data) => {
+				if (data.length > 0) {
+					return res.status(HttpStatus.NO_CONTENT).json({
+						message: 'User modified successfully'
+					})
+				}
+				return res.status(HttpStatus.NOT_ACCEPTABLE).json({
+					message: 'User modification failed'
+				})
+			}, next)
 	}
 
 	static delete(req, res, next) {
-		res.send('delete user')
+		User.delete(req.params.id,
+			(data) => {
+				if (data) {
+
+				}
+
+			}, next)
 	}
 
 	static login(req, res, next) {
 		session = req.session
+	}
+
+	static handleError(error, req, res, next) {
+		return res.status(HttpStatus.BAD_REQUEST).json({
+			message: error.message
+		})
 	}
 }
 
