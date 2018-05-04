@@ -85,7 +85,8 @@ class User {
 			var username = checkUsername(User.username)
 			var email = checkEmail(User.email)
 			var salt = checkPassword(User.password)
-			return db('users')
+
+			db('users')
 				.insert({
 					username: username,
 					email: email,
@@ -172,8 +173,7 @@ function checkPassword(password) {
 	if (!passwordRegex.test(password)) {
 		throw new Error('Password must be at least 7 characters')
 	}
-	return crypto.createHash('sha256').update(User.password).digest('hex')
-
+	return crypto.createHash('sha256').update(password).digest('hex')
 }
 
 module.exports = {
