@@ -34,7 +34,7 @@ class MovieController {
 						message: 'Movie successfully added'
 					})
 				}
-				return res.status(HttpStatus.NOT_IMPLEMENTED).json({
+				return res.status(HttpStatus.BAD_REQUEST).json({
 					message: 'Movie creation failed'
 				})
 			}, next)
@@ -59,9 +59,13 @@ class MovieController {
 		Movie.delete(req.params.id,
 			(data) => {
 				if (data) {
-
+					return res.status(HttpStatus.OK).json({
+						message: 'Movie ' + req.params.id + ' was deleted successfully'
+					})
 				}
-
+				return res.status(HttpStatus.NOT_FOUND).json({
+					message: 'Movie does not exist'
+				})
 			}, next)
 	}
 }

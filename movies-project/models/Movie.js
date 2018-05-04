@@ -3,11 +3,24 @@ var db = require('./db.config')
 class Movie {
 
 	static add(Movie, success, failure) {
+
+		try {
+			if (typeof Movie.name === 'undefined' ||
+				typeof Movie.category === 'undefined' 
+				) {
+				throw new Error('A Movie must have a name, category')
+			}
+		
+
+
 		return db('movies')
 			.insert(Movie)
 			.then(success)
 			.catch(failure)
-	}
+		} catch (error) {
+			failure(error)
+		}
+}
 
 	static update(id, modification, success, failure) {
 		return db('movies')
