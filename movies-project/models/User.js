@@ -119,7 +119,7 @@ class User {
 		 * (success) -> user object
 		 */
 		return db('users')
-			.select('*')
+			.select('username','email')
 			.where('id', '=', id)
 			.first()
 			.then(success)
