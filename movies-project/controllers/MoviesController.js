@@ -5,24 +5,24 @@ class MovieController {
 	static get(req, res, next) {
 		if (req.params.id) {
 			return Movie.getMovieById(req.params.id,
-			(movie) => {
-				if(movie){
-					return req.status(HttpStatus.OK).JSON(movie)
-				}
-				return req.status(HttpStatus.NOT_FOUND).json({
-					message: 'No movie with id ' + req.params.id
-				})
-			},next)
-		}else {
-				return Movie.getAllMovies(
-					(movies) => {
-						if (movies.length > 0){
-							return res.status(HttpStatus.OK).json(movies)
-						}
-						return res.status(HttpStatus.NOT_FOUND).json({
-							message: 'There are no movies'
-						})
-					},next)
+				(movie) => {
+					if (movie) {
+						return res.status(HttpStatus.OK).json(movie)
+					}
+					return res.status(HttpStatus.NOT_FOUND).json({
+						message: 'No movie with id ' + req.params.id
+					})
+				}, next)
+		} else {
+			return Movie.getAllMovies(
+				(movies) => {
+					if (movies.length > 0) {
+						return res.status(HttpStatus.OK).json(movies)
+					}
+					return res.status(HttpStatus.NOT_FOUND).json({
+						message: 'There are no movies'
+					})
+				}, next)
 		}
 	}
 
@@ -30,11 +30,11 @@ class MovieController {
 		return Movie.add(req.body,
 			(data) => {
 				if (data.length > 1) {
-					return req.status(HttpStatus.CREATED).json({
+					return re.sstatus(HttpStatus.CREATED).json({
 						message: 'Movie successfully added'
 					})
 				}
-				return req.status(HttpStatus.NOT_IMPLEMENTED).json({
+				return res.status(HttpStatus.NOT_IMPLEMENTED).json({
 					message: 'Movie creation failed'
 				})
 			}, next)
