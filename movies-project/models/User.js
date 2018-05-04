@@ -106,7 +106,9 @@ class User {
 		 * (success) -> array of users
 		 */
 		return db('users')
-			.select('*')
+			// .select('*')
+			.select('username','email')
+			// .join()
 			.then(success)
 			.catch(failure)
 	}
@@ -151,7 +153,7 @@ function checkUsername(username) {
 }
 
 function checkEmail(email) {
-	email = User.email.trim().toLowerCase()
+	email = email.trim().toLowerCase()
 	if (email === '' || !emailRegex.test(email)) {
 		throw new Error('Email is not valid')
 	}
