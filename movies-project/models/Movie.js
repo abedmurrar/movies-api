@@ -6,10 +6,11 @@ class Movie {
 
 		try {
 			if (typeof Movie.name === 'undefined' ||
-				typeof Movie.category === 'undefined' ||
+				typeof Movie.category === 'undefined' 
 				) {
 				throw new Error('A Movie must have a name, category')
 			}
+		
 
 
 		return db('movies')
@@ -18,7 +19,7 @@ class Movie {
 			.catch(failure)
 		} catch (error) {
 			failure(error)
-	}
+		}
 }
 
 	static update(id, modification, success, failure) {
