@@ -1,5 +1,9 @@
-var User = require('../models/User')
+var User = require('../models/User').User
+var checkEmail = require('../models/User').checkEmail
+var checkUsername = require('../models/User').checkUsername
+var checkPassword = require('../models/User').checkPassword
 const HttpStatus = require('http-status-codes')
+var crypto = require('crypto')
 var session
 class UserController {
 	static get(req, res, next) {
@@ -27,7 +31,15 @@ class UserController {
 	}
 
 	static getFavorites(req, res, next) {
-		return res.send('get all favs')
+		return User.getFavorites(req.params.id,
+			(movies) => {
+				if (movies.length > 0) {
+					return res.status(HttpStatus.OK).json(movies)
+				}
+				return res.status(HttpStatus.NOT_FOUND).json({
+					message: 'User ' + req.params.id + ' doesn\'t have favorites movies, or user does not exist'
+				})
+			}, next)
 	}
 
 	static post(req, res, next) {
@@ -36,7 +48,7 @@ class UserController {
 				if (data.length > 1) {
 					return res.status(HttpStatus.CREATED).json(req.body)
 				}
-				return res.status(HttpStatus.NOT_ACCEPTABLE).json({
+				return res.status(HttpStatus.BAD_REQUEST).json({
 					message: 'User creation failed'
 				})
 			}, next)
@@ -51,7 +63,7 @@ class UserController {
 						message: 'User modified successfully'
 					})
 				}
-				return res.status(HttpStatus.NOT_ACCEPTABLE).json({
+				return res.status(HttpStatus.BAD_REQUEST).json({
 					message: 'User modification failed'
 				})
 			}, next)
@@ -61,14 +73,41 @@ class UserController {
 		User.delete(req.params.id,
 			(data) => {
 				if (data) {
-
+					return res.status(HttpStatus.OK).json({
+						message: 'User ' + req.params.id + ' was deleted successfully'
+					})
 				}
-
+				return res.status(HttpStatus.NOT_FOUND).json({
+					message: 'User does not exist'
+				})
 			}, next)
 	}
 
 	static login(req, res, next) {
 		session = req.session
+		if (typeof req.body.username === 'undefined' ||
+			typeof req.body.password === 'undefined') {
+			throw new Error('username and password must be passed to login')
+		}
+		return User.getUserByUsername(req.body.username,
+			(user) => {
+				if (typeof user.username !== 'undefined') {
+					var salt = checkPassword(req.body.password)
+					if (salt === user.password) {
+						session.username = user.username
+						session.uid = user.id
+						session.email = user.email
+						delete user.password
+						return res.status(HttpStatus.OK).json(user)
+					}
+					return res.status(HttpStatus.UNAUTHORIZED).json({
+						message: 'User login failed'
+					})
+				}
+				return res.status(HttpStatus.NOT_FOUND).json({
+					message: 'User does not exist'
+				})
+			}, next)
 	}
 
 	static handleError(error, req, res, next) {
