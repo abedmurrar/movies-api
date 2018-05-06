@@ -29,7 +29,7 @@ class MovieController {
 	static post(req, res, next) {
 		return Movie.add(req.body,
 			(data) => {
-				if (data.length > 1) {
+				if (data.length > 0) {
 					return res.status(HttpStatus.CREATED).json({
 						message: 'Movie successfully added'
 					})
