@@ -1,15 +1,23 @@
 var Image = require('../models/Image')
-
+var path = require('path')
 class ImageController {
 	static get(req, res, next) {
-		return res.send('get one image from '+req.params.path)
+		var options = {
+			root: path.join(__dirname, '../img'),
+			dotfiles: 'deny',
+			headers: {
+				'x-timestamp': Date.now(),
+				'x-sent': true
+			}
+		}
+		res.sendFile(req.params.poster_dir, options, function (err) {
+			if (err) {
+				next()
+			} else {
+				console.log('Sent:', req.params.poster_dir)
+			}
+		})
 	}
-
-	static create(req, res, next) {
-		// check multer package
-		return res.send('upload image')
-	}
-
 }
 
 module.exports = ImageController
