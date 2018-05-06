@@ -42,7 +42,6 @@ class MovieController {
 
 
 	static put(req, res, next) {
-		console.log(body)
 		return Movie.update(req.params.id, req.body,
 			(data) => {
 				if (data) {
