@@ -1,4 +1,3 @@
-var Image = require('../models/Image')
 var path = require('path')
 class ImageController {
 	static get(req, res, next) {
