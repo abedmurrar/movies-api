@@ -3,7 +3,6 @@ var router = express.Router()
 var ImageController = require('../controllers/ImageController')
 
 /* GET home page. */
-router.get('/:path', ImageController.get)
-router.post('/',ImageController.create)
+router.get('/:poster_dir', ImageController.get)
 
 module.exports = router
