@@ -1,5 +1,9 @@
 var db = require('./db.config')
 
+const nameRegex = /^[\w\d.$\- ]+$/
+
+
+
 class Movie {
 
 	static add(Movie, success, failure) {
