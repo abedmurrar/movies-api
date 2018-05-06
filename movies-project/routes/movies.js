@@ -1,11 +1,11 @@
 var express = require('express')
 var MovieController = require('../controllers/MoviesController')
 var multer = require('multer')
-var upload = multer({ dest: '../img/' })
+// var upload = multer({ dest: '../img/' })
 var router = express.Router()
 
 router.get('/:id?', MovieController.get)
-router.post('/', upload.single('poster'), MovieController.post)
+// router.post('/', upload.single('poster'), MovieController.post)
 router.put('/:id', MovieController.put)
 router.delete('/:id', MovieController.delete)
 
