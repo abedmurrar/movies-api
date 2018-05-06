@@ -58,7 +58,7 @@ class UserController {
 		session = req.session
 		return User.update(req.params.id, req.body,
 			(data) => {
-				if (data.length > 0) {
+				if (data) {
 					return res.status(HttpStatus.NO_CONTENT).json({
 						message: 'User modified successfully'
 					})
