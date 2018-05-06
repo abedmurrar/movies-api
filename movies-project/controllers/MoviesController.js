@@ -42,9 +42,10 @@ class MovieController {
 
 
 	static put(req, res, next) {
+		console.log(body)
 		return Movie.update(req.params.id, req.body,
 			(data) => {
-				if (data.length > 0) {
+				if (data) {
 					return res.status(HttpStatus.NO_CONTENT).json({
 						message: 'Movie modified successfully'
 					})
