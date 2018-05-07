@@ -33,7 +33,7 @@ class UserController {
 	static getFavorites(req, res, next) {
 		return User.getFavorites(req.params.id,
 			(movies) => {
-				if (movies.length > 0) {
+				if (movies) {
 					return res.status(HttpStatus.OK).json(movies)
 				}
 				return res.status(HttpStatus.NOT_FOUND).json({
@@ -43,9 +43,10 @@ class UserController {
 	}
 
 	static post(req, res, next) {
+		console.log("hi")
 		return User.add(req.body,
 			(data) => {
-				if (data.length > 0) {
+				if (data) {
 					return res.status(HttpStatus.CREATED).json(req.body)
 				}
 				return res.status(HttpStatus.BAD_REQUEST).json({
@@ -92,7 +93,9 @@ class UserController {
 		return User.getUserByUsername(req.body.username,
 			(user) => {
 				if (typeof user.username !== 'undefined') {
+					console.log(user)
 					var salt = checkPassword(req.body.password)
+					console.log(salt)
 					if (salt === user.password) {
 						session.username = user.username
 						session.uid = user.id
@@ -105,6 +108,7 @@ class UserController {
 					})
 				}
 				return res.status(HttpStatus.NOT_FOUND).json({
+					
 					message: 'User does not exist'
 				})
 			}, next)

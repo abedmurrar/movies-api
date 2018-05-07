@@ -136,7 +136,7 @@ class User {
 		 */
 
 		return db('users')
-			.select('username', 'email')
+			.select('username', 'email','password')
 			.where('username', '=', username)
 			.first()
 			.then(success)
