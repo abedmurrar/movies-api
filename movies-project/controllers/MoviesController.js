@@ -46,7 +46,11 @@ class MovieController {
 
 
 	static put(req, res, next) {
-		return Movie.update(req.params.id, req.body,
+		var mov = req.body
+		if (req.file && req.file.filename) {
+			mov.poster_dir='/'+req.file.filename
+		}
+		return Movie.update(req.params.id, mov,
 			(data) => {
 				if (data) {
 					return res.status(HttpStatus.NO_CONTENT).json({
