@@ -54,6 +54,20 @@ class UserController {
 			}, next)
 	}
 
+	static addFavorite(req, res, next) {
+		User.addFavorite(req.params.id, req.body.movie,
+			(data) => {
+				if (data) {
+					return res.status(HttpStatus.OK).json({
+						message: 'Movie ' + req.body.movie + ' is now favorite for user ' + req.params.id+' Successfully'
+					})
+				}
+				return res.status(HttpStatus.NOT_ACCEPTABLE).json({
+					message: 'Movie favorite failed'
+				})
+			},next)
+	}
+
 	static put(req, res, next) {
 		session = req.session
 		return User.update(req.params.id, req.body,
@@ -105,7 +119,7 @@ class UserController {
 					})
 				}
 				return res.status(HttpStatus.NOT_FOUND).json({
-					
+
 					message: 'User does not exist'
 				})
 			}, next)
