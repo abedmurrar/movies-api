@@ -40,6 +40,9 @@ class UserController {
 	}
 
 	static post(req, res, next) {
+		if (typeof req.body.role !== 'undefined') {
+			delete req.body.role
+		}
 		return User.add(req.body,
 			(data) => {
 				if (data) {
@@ -56,13 +59,13 @@ class UserController {
 			(data) => {
 				if (data) {
 					return res.status(HttpStatus.OK).json({
-						message: 'Movie ' + req.body.movie + ' is now favorite for user ' + req.params.id+' Successfully'
+						message: 'Movie ' + req.body.movie + ' is now favorite for user ' + req.params.id + ' Successfully'
 					})
 				}
 				return res.status(HttpStatus.NOT_ACCEPTABLE).json({
 					message: 'Movie favorite failed'
 				})
-			},next)
+			}, next)
 	}
 
 	static put(req, res, next) {
