@@ -1,9 +1,6 @@
 var User = require('../models/User').User
-var checkEmail = require('../models/User').checkEmail
-var checkUsername = require('../models/User').checkUsername
 var checkPassword = require('../models/User').checkPassword
 const HttpStatus = require('http-status-codes')
-var crypto = require('crypto')
 var session
 class UserController {
 	static get(req, res, next) {

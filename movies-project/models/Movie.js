@@ -1,13 +1,5 @@
 var db = require('./db.config')
 
-const nameRegex = /^[\w\d.$\- ]+$/
-/**
- * Movie name Regular Expression
- * a movie name can contain alphanumeric characters 
- * and dashes, spaces, and dots only
- */
-
-
 class Movie {
 	/**
 	 * All functions are static in Movie model
