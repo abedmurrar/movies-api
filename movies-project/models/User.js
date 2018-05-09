@@ -23,19 +23,139 @@ class User {
 	 * All functions are static in User model
 	 * success and failure parameters are callback functions
 	 * failure callback always returns an Error
+	
+	 * users table's columns in database are :
+	 * 	id (Primary key) | int
+	 * 	username | varchar
+	 * 	email | varchar
+	 * 	u_role (foreign key to roles.role) | int
+	
+	 * Roles table have two rows only : (admin, user)
+	 * roles table's columns in database are :
+	 * 	role_id (Primary Key)
+	 * 	role
+	 
+	 * Favorites table shows what movies are favorites
+	 * for a specific user (User-Movie relationship)
+	 * favorites table's column in database are :
+	 * 	fav_id (Primary Key)
+	 * 	user (foreign key to users.id)
+	 * 	fav_movie (foreign key to movies.id)
 	 */
+
+	static add(User, success, failure) {
+		/**
+		 * Adds new user to database
+		 * a User must have a username, password, email
+		 * (success) -> array containing the id of last inserted row
+		 */
+		try {
+			if (typeof User.username === 'undefined' ||
+				typeof User.password === 'undefined' ||
+				typeof User.email === 'undefined') {
+				throw new Error('A User must have a username, email, and a password')
+			}
+			if (typeof User.id !== 'undefined') {
+				delete User.id
+			}
+			var username = checkUsername(User.username)
+			var email = checkEmail(User.email)
+			var salt = checkPassword(User.password)
+
+			db('users')
+				.insert({
+					username: username,
+					email: email,
+					password: salt
+				})
+				.then(success)
+				.catch(failure)
+		} catch (error) {
+			failure(error)
+		}
+
+	}
+
+	static addFavorite(user_id, movie_id, success, failure) {
+		return db('favorites')
+			.insert({
+				user: user_id,
+				fav_movie: movie_id
+			})
+			.then(success)
+			.catch(failure)
+	}
+
+	static getAllUsers(success, failure) {
+		/**
+		 * Gets all users from database
+		 * (success) -> array of users
+		 */
+		return db('users')
+			.select('username', 'email', 'role')
+			.join('roles', 'roles.role_id', '=', 'users.u_role')
+			.then(success)
+			.catch(failure)
+	}
+
+	static getUserById(id, success, failure) {
+		/**
+		 * Gets one user by id
+		 * (success) -> user object
+		 */
+		return db('users')
+			.select('username', 'email', 'role')
+			.join('roles', 'roles.role_id', '=', 'users.u_role')
+			.where('id', '=', id)
+			.first()
+			.then(success)
+			.catch(failure)
+	}
+
+	static getUserByUsername(username, success, failure) {
+		/**
+		 * Gets one user by username
+		 * (success) -> user object
+		 * This function will be used for login 
+		 * then the password is compared in the callback function
+		 * 
+		 */
+
+		return db('users')
+			.select('username', 'email', 'password')
+			.where('username', '=', username)
+			.first()
+			.then(success)
+			.catch(failure)
+	}
+
+	static getFavorites(id, success, failure) {
+		return db('favorites')
+			.select('movies.id as id', 'name', 'category', 'age_rating', 'user_rating', 'year', 'language', 'poster_dir')
+			.where('user', id)
+			.join('movies', 'movies.id', '=', 'favorites.fav_movie')
+			.then(success)
+			.catch(failure)
+	}
 
 	static update(id, modification, success, failure) {
 		/**
 		 * Updates existing user in database
 		 * a User can at least update a username, password, or an email
-		 * (success) -> array containing the id of last modified row
+		 * (success) -> the id of modified row, 0 if doesn't exist
 		 */
 		try {
-			if (typeof modification.username === 'undefined' &&
-				typeof modification.password === 'undefined' &&
-				typeof modification.email === 'undefined') {
+			if (typeof modification === 'undefined' ||
+				(
+					typeof modification.username === 'undefined' &&
+					typeof modification.password === 'undefined' &&
+					typeof modification.email === 'undefined'
+				)
+			) {
 				throw new Error('Nothing is sent to update')
+			}
+			if (modification.id !== 'undefined') {
+				delete modification.id
 			}
 			var User = {}
 			if (modification.username) {
@@ -66,88 +186,6 @@ class User {
 		return db('users')
 			.del()
 			.where('id', '=', id)
-			.then(success)
-			.catch(failure)
-	}
-
-	static add(User, success, failure) {
-		/**
-		 * Adds new user to database
-		 * a User must have a username, password, email
-		 * (success) -> array containing the id of last inserted row
-		 */
-		try {
-			if (typeof User.username === 'undefined' ||
-				typeof User.password === 'undefined' ||
-				typeof User.email === 'undefined') {
-				throw new Error('A User must have a username, email, and a password')
-			}
-			var username = checkUsername(User.username)
-			var email = checkEmail(User.email)
-			var salt = checkPassword(User.password)
-
-			db('users')
-				.insert({
-					username: username,
-					email: email,
-					password: salt
-				})
-				.then(success)
-				.catch(failure)
-		} catch (error) {
-			failure(error)
-		}
-
-	}
-
-	static getAllUsers(success, failure) {
-		/**
-		 * Gets all users from database
-		 * (success) -> array of users
-		 */
-		return db('users')
-			// .select('*')
-			.select('username', 'email')
-			// .join()
-			.then(success)
-			.catch(failure)
-	}
-
-	static getUserById(id, success, failure) {
-		/**
-		 * Gets one user by id
-		 * (success) -> user object
-		 */
-		return db('users')
-			.select('username', 'email')
-			.where('id', '=', id)
-			.first()
-			.then(success)
-			.catch(failure)
-	}
-
-	static getUserByUsername(username, success, failure) {
-		/**
-		 * Gets one user by username
-		 * (success) -> user object
-		 * This function will be used for login 
-		 * then the password is compared in the callback function
-		 * 
-		 */
-
-		return db('users')
-			.select('username', 'email','password')
-			.where('username', '=', username)
-			.first()
-			.then(success)
-			.catch(failure)
-	}
-
-	static getFavorites(id, success, failure) {
-		return db('favorites')
-			.select('movies.id as id', 'name', 'category', 'age_rating', 'user_rating', 'year', 'language', 'poster_dir')
-			.where('user', id)
-			.join('movies', 'movies.id', '=', 'favorites.fav_movie')
 			.then(success)
 			.catch(failure)
 	}
