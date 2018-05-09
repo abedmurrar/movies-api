@@ -27,7 +27,11 @@ class MovieController {
 	}
 
 	static post(req, res, next) {
-		return Movie.add(req.body,
+		var mov = req.body
+		if (req.file && req.file.filename) {
+			mov.poster_dir='/'+req.file.filename
+		}
+		return Movie.add(mov,
 			(data) => {
 				if (data.length > 0) {
 					return res.status(HttpStatus.CREATED).json({
