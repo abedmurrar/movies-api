@@ -94,6 +94,7 @@ class User {
 		return db('users')
 			.select('username', 'email', 'role')
 			.join('roles', 'roles.role_id', '=', 'users.u_role')
+			.timeout(10000)
 			.then(success)
 			.catch(failure)
 	}
@@ -108,6 +109,7 @@ class User {
 			.join('roles', 'roles.role_id', '=', 'users.u_role')
 			.where('id', '=', id)
 			.first()
+			.timeout(10000)
 			.then(success)
 			.catch(failure)
 	}
@@ -122,9 +124,11 @@ class User {
 		 */
 
 		return db('users')
-			.select('username', 'email', 'password')
+			.select('id','username', 'email', 'password','role')
+			.join('roles', 'roles.role_id', '=', 'users.u_role')
 			.where('username', '=', username)
 			.first()
+			.timeout(10000)
 			.then(success)
 			.catch(failure)
 	}
@@ -132,8 +136,9 @@ class User {
 	static getFavorites(id, success, failure) {
 		return db('favorites')
 			.select('movies.id as id', 'name', 'category', 'age_rating', 'user_rating', 'year', 'language', 'poster_dir')
-			.where('user', id)
 			.join('movies', 'movies.id', '=', 'favorites.fav_movie')
+			.where('user', id)
+			.timeout(10000)
 			.then(success)
 			.catch(failure)
 	}
