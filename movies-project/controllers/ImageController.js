@@ -1,4 +1,5 @@
 var path = require('path')
+var debug = require('debug')('images')
 
 class ImageController {
 	static get(req, res, next) {
@@ -14,7 +15,7 @@ class ImageController {
 			if (err) {
 				next()
 			} else {
-				console.log('Sent:', req.params.poster_dir)
+				debug('Sent:', req.params.poster_dir)
 			}
 		})
 	}

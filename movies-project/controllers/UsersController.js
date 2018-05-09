@@ -13,7 +13,7 @@ class UserController {
 					if (user) {
 						return res.status(HttpStatus.OK).json(user)
 					}
-					return req.status(HttpStatus.NOT_FOUND).json({
+					return res.status(HttpStatus.NOT_FOUND).json({
 						message: 'No user with id ' + req.params.id
 					})
 				}, next)
@@ -43,7 +43,6 @@ class UserController {
 	}
 
 	static post(req, res, next) {
-		console.log("hi")
 		return User.add(req.body,
 			(data) => {
 				if (data) {
@@ -93,9 +92,7 @@ class UserController {
 		return User.getUserByUsername(req.body.username,
 			(user) => {
 				if (typeof user.username !== 'undefined') {
-					console.log(user)
 					var salt = checkPassword(req.body.password)
-					console.log(salt)
 					if (salt === user.password) {
 						session.username = user.username
 						session.uid = user.id

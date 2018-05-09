@@ -1,6 +1,5 @@
 var createError = require('http-errors')
 var express = require('express')
-var path = require('path')
 var cookieParser = require('cookie-parser')
 var logger = require('morgan')
 var helmet = require('helmet')
@@ -13,6 +12,8 @@ var bodyParser = require('body-parser')
 var usersRouter = require('./routes/users')
 var moviesRouter = require('./routes/movies')
 var imagesRouter = require('./routes/image')
+var indexRouter = require('./routes/index')
+var apiRouter = require('./routes/api')
 
 var app = express()
 app.disable('x-powered-by') // for minimum security purposes
@@ -49,9 +50,10 @@ app.use(express.urlencoded({
 	extended: false
 }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
 
 // Routing
+app.use('/',indexRouter)
+app.use('/api',apiRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/movies', moviesRouter)
 app.use('/api/img', imagesRouter)
