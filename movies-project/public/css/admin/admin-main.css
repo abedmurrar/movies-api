@@ -1,0 +1,43 @@
+.profile-container>div>i {
+    font-size: 4em;
+    width: 1.6em;
+    text-align: center;
+    line-height: 1.6em;
+    background: #363636;
+    color: #fff;
+    border-radius: 0.8em;
+    /* or 50% width & line-height */
+}
+
+.profile-container {
+    padding-top: 25px;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+i {
+    font-size: 2.5em;
+    width: 1.3em;
+    text-align: center;
+    line-height: 1.6em;
+    color: #fff;
+    border-radius: 0.8em;
+}
+
+.btn-danger > i , .btn-primary > i {
+    width: 1em;
+    font-size: 1.5em;
+}
+
+.btn-primary{
+    margin-top: 5px;
+}
+
+.btn-success {
+    margin-right: 15px;
+}
+
+.admin-control {
+    margin-top: 80vh;
+    position: fixed;
+}

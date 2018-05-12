@@ -5,6 +5,7 @@ var logger = require('morgan')
 var helmet = require('helmet')
 var cors = require('cors') // cross origin resource sharing
 var session = require('express-session')
+var path = require('path')
 var bodyParser = require('body-parser')
 
 // Routers
@@ -16,6 +17,7 @@ var indexRouter = require('./routes/index')
 var apiRouter = require('./routes/api')
 
 var app = express()
+// security 
 app.disable('x-powered-by') // for minimum security purposes
 app.use(cors())
 app.use(helmet())
@@ -24,9 +26,14 @@ app.use(helmet.noSniff())
 app.use(helmet.frameguard())
 app.use(helmet.xssFilter())
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'))
+// app.engine('html', require('ejs').renderFile)
+app.set('view engine', 'ejs')
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
-	extended: false
+	extended: true
 }))
 // session and cookies settings
 var sessionOptions = {
@@ -50,10 +57,10 @@ app.use(express.urlencoded({
 	extended: false
 }))
 app.use(cookieParser())
-
+app.use(express.static(path.join(__dirname, 'public')))
 // Routing
-app.use('/',indexRouter)
-app.use('/api',apiRouter)
+app.use('/', indexRouter)
+app.use('/api', apiRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/movies', moviesRouter)
 app.use('/api/img', imagesRouter)

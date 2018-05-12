@@ -1,0 +1,44 @@
+.profile-container>div>i {
+    font-size: 4em;
+    width: 1.6em;
+    text-align: center;
+    line-height: 1.6em;
+    background: #363636;
+    color: #fff;
+    border-radius: 0.8em;
+    /* or 50% width & line-height */
+}
+
+.profile-container {
+    padding-top: 25px;
+    justify-content: flex-start;
+    min-height: 100vh;
+    position: relative;
+}
+
+.movie-container {
+    justify-content: space-between;
+}
+
+.poster-container {
+    width: 15%;
+    height: auto;
+}
+
+.poster {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.info-container {
+    width: 70%;
+}
+
+.user-control {
+    margin-top: 80vh;
+    position: fixed;
+}
+
+.star-rating {
+    margin-top: 15px;
+}

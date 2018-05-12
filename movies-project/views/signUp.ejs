@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Page</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins|Roboto" rel="stylesheet">
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+    <!-- This Page Custom CSS -->
+    <link rel="stylesheet" href="/css/signUp/signUp-main.css">
+
+</head>
+
+<body>
+
+    <!-- All Page Container -->
+    <div class="page-container">
+
+        <!-- Logo -->
+        <div class="logo-container flex-center">
+            <div class="flex-center logo">
+                <i class="bg-black fa fa-film"></i>
+            </div>
+            <p class="logo-title">Sign Up</p>
+        </div>
+
+        <!-- Input Fields -->
+        <div class="form">
+
+            <!-- Username -->
+            <div class="input-container">
+                <label for="username" class="input-label">
+                    <div class="username-div">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <span>Username</span>
+                    </div>
+                </label>
+                <input type="text" onfocus="colorWhite()" class="input-input" id="username">
+            </div>
+
+            <!-- Email -->
+            <div class="input-container">
+                <label for="email" class="input-label">
+                    <div class="email-div">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <span>Email</span>
+                    </div>
+                </label>
+                <input type="text" onfocus="colorWhite()" class="input-input" id="email">
+            </div>
+
+            <!-- Password -->
+            <div class="input-container">
+                <label for="password" class="input-label">
+                    <div class="password-div">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <span>Password</span>
+                    </div>
+                </label>
+                <input type="password" onfocus="colorWhite()" class="input-input" id="password">
+            </div>
+
+            <!-- Login Button -->
+            <div class="submit-container flex-center">
+                <button type='button' onclick="validateForm()" class='submit-button flex-center btn btn-primary'>Register</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+    <!-- Bootbox JS -->
+    <script src="/plugins/bootbox.min.js"></script>
+
+    <!-- This Page Custom JS -->
+    <script src="/js/signUp/signUpMain.js"></script>
+</body>
+
+</html>

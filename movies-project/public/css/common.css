@@ -1,0 +1,107 @@
+/* General classes */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 80%;
+}
+
+body {
+    overflow-x: hidden;
+}
+.full-height {
+    height: 100%;
+}
+
+.flex-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex !important;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.flex-column {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex !important;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: column wrap;
+    flex-flow: column wrap;
+}
+
+.flex-row {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+
+.first-font-style {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-weight: bold;
+    font-family: montserrat, sans-serif;
+    font-size: 17px;
+    line-height: 20px;
+    text-decoration: none;
+}
+
+.main-container {
+    min-height: 100%;
+    background-color: #E5E5E5;
+    padding-bottom: 100px;
+}
+
+.key-font {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: roboto;
+    font-size: 20px;
+    color: #242f40;
+    line-height: 36px;
+    text-decoration: none;
+}
+
+.value-font {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: roboto;
+    font-size: 18px;
+    color: #6F732F;
+    line-height: 36px;
+    text-decoration: none;
+    display: inline;
+}
+
+.back-stars {
+    display: flex;
+    color: #bb5252;
+    position: relative;
+    text-shadow: 4px 4px 10px #843a3a;
+}
+
+.front-stars {
+    display: flex;
+    color: #FFBC0B;
+    overflow: hidden;
+    position: absolute;
+    text-shadow: 2px 2px 5px #d29b09;
+    top: 0;
+}
+
+.hidden {
+    display: none;
+}

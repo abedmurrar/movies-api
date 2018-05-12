@@ -28,7 +28,7 @@ var upload = multer({
 
 router.get('/:id?', MovieController.get)
 router.post('/', upload.single('poster'), MovieController.post)
-router.put('/:id', upload.single('poster'), MovieController.put)
+router.put('/:id', MovieController.put)
 router.delete('/:id', MovieController.delete)
 
 module.exports = router

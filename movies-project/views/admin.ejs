@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rarrum Cima</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+        crossorigin="anonymous">
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+
+    <!-- Animate.CSS -->
+    <link rel="stylesheet" href="/plugins/animate.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,400" rel="stylesheet">
+
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="/css/common.css">
+
+    <!-- This Page Custom CSS -->
+    <link rel="stylesheet" href="/css/admin/admin-main.css">
+
+</head>
+
+<body>
+
+    <!-- Modal For Add Movie -->
+    <div class="modalContainer"></div>
+    <!-- The Main Container That Holds Everything -->
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- Side Navbar -->
+            <div class="col-2 bg-secondary flex-column flex-center profile-container wow slideInUp" data-wow-duration="2s">
+                <div class="flex-center flex-column" style="position: fixed;">
+                    <i class="fa fa-user"></i>
+                    <h1>Email</h1>
+                    <h1>Username</h1>
+                </div>
+
+                <div class="admin-control flex-center flex-column">
+                    <div class="container-fluid flex-center">
+                        <button type='button' style="margin-right: 2px;" class='btn btn-danger'>Logout</button>
+                        <button type='button' class='btn btn-success'>Search</button>
+                    </div>
+
+                    <input id="searchInput" style="margin-top: 10px;" type="text" class="form-control" placeholder="Enter Movie Name">
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="col-10 bg-light">
+
+                <!-- Jumbotron -->
+                <div class="container-fluid wow slideInRight" data-wow-duration="2s">
+                    <div class="jumbotron">
+                        <h1>Admin Homepage</h1>
+                        <p>You can add, edit, and delete movies.</p>
+                    </div>
+                </div>
+
+                <!-- Favorite Movies Container -->
+                <div class="container-fluid">
+
+                    <!-- All Favorite Movies -->
+                    <!-- This should be a table -->
+                    <!-- each row must have these info: name user-rating age_rating category language year id -->
+
+                    <div class="container  table-responsive clearfix">
+                        <div class="clearfix">
+                            <button type='button' class='btn btn-success float-right' data-toggle="modal" data-target="#myModal">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                            <h2 style="line-height: 50px;">All Movies Table</h2>
+                        </div>
+                        <table id="example" class="table table-dark table-striped" style="margin: 50px 0;">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Movie Name</th>
+                                    <th>User Rating</th>
+                                    <th>Age Rating</th>
+                                    <th>Category</th>
+                                    <th>Language</th>
+                                    <th>Year</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Propper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+
+    <!-- Bootstrap 4 JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+
+    <!-- wow JS -->
+    <script src="/plugins/wow.min.js"></script>
+
+    <!-- Bootbox JS -->
+    <script src="/plugins/bootbox.min.js"></script>
+
+    <!-- Common JS -->
+    <script src="/js/common.js"></script>
+
+    <!-- This Page JS -->
+    <script src="/js/admin/adminMain.js"></script>
+</body>
+
+</html>
