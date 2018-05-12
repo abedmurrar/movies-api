@@ -1,5 +1,6 @@
 var express = require('express')
 var router = express.Router()
+var session
 
 /* GET home page */
 router.get('/', (req, res) => {
@@ -7,26 +8,21 @@ router.get('/', (req, res) => {
 })
 /* GET login page */
 router.get('/login', (req, res) => {
+	session = req.session
+	if (typeof session.username !== 'undefined')
+		return res.render('index')
 	return res.render('login')
 })
 /* GET signup page */
 router.get('/signup', (req, res) => {
 	return res.render('signUp')
 })
-// router.get('/', function (req, res, next) {
-// 	res.send(
-// 		'<div ' +
-//         'style="display:grid;justify-content:center;text-align:center;">' +
-//         '<h1>Rarrum Cima</h1>' +
-//         '<h2>Backend</h2>' +
-//         '<p>Abed Al Rahman Murrar</p>' +
-//         '<p>Nizar Fteiha</p>' +
-//         '<h2>Frontend</h2>' +
-//         '<p>Mohammad Shilleh</p>' +
-//         '<h2>Android</h2>' +
-//         '<p>Mo\'ath Sandouka</p>' +
-//         '</div>'
-// 	)
-// })
+
+router.get('/admin', (req, res) => {
+	session = req.session
+	if (session.role === 'admin')
+		return res.render('admin')
+	return res.render('index')
+})
 
 module.exports = router

@@ -5,11 +5,6 @@ function returnToHomePage() {
   location.href = '/';
 }
 
-/* Load the footer */
-$(() => {
-  $('.modalContainer').load('../../html/addMovie.html');
-});
-
 
 /* Update the header when the document loads and on resize */
 /*

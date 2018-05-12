@@ -111,6 +111,7 @@ class UserController {
 						session.username = user.username
 						session.uid = user.id
 						session.email = user.email
+						session.role = user.role
 						delete user.password
 						return res.status(HttpStatus.OK).json(user)
 					}
