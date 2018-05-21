@@ -215,40 +215,34 @@ function addMovie(event) {
 	const user_rating = $('#user_rating').val()
 	const year = $('#year').val()
 	const category = $('#category').val()
-	const language = $('#language').val()
-	/* Poster_Dir */
-	let poster_dir = $('#poster_dir').val()
-	const posterValues = poster_dir.split('\\')
-	poster_dir = posterValues[posterValues.length - 1]
+  const language = $('#language').val()
+  
+  var form_data = new FormData()
+  form_data.append('name',name)
+  form_data.append('age_rating',age_rating)
+  form_data.append('user_rating',user_rating)
+  form_data.append('year',year)
+  form_data.append('category',category)
+  form_data.append('language',language)
+  var file_data = $("#poster").prop("files")[0]
+  form_data.append('poster',file_data)
 
 
-
-	/* Make JSON file */
-	const newMovie = {
-		name,
-		age_rating,
-		user_rating,
-		year,
-		category,
-		language,
-		poster_dir,
-	}
-
-	console.log(poster_dir)
 
 	/* POST Method */
 	jQuery.ajax({
 		url: '/api/movies/',
-		dataType: 'json',
-		type: 'POST',
 		cache: false,
-		data: newMovie,
+		contentType: false,
+		processData: false,
+		type: 'POST',
+		data: form_data,
 		success(msg) {
 			bootbox.alert({
 				size: 'small',
 				message: 'New Movie Added',
-			})
-			console.log(msg)
+      })
+      $("tbody").empty()
 			getAllMovies()
 		},
 		error() {

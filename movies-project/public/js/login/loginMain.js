@@ -77,8 +77,8 @@ function direct(response) {
 	const { id } = response
 	const { role } = response
 	if (role.toLowerCase() === 'client') {
-		window.open(`../../../html/user.html?id=${id}`, '_self')
+		window.open('/user', '_self')
 	} else {
-		window.open(`../../../html/admin.html?id=${id}`, '_self')
+		window.open('/admin', '_self')
 	}
 }

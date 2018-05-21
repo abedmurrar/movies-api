@@ -69,7 +69,7 @@ function addNewUser(dataJSON) {
 		data: (dataJSON),
 		dataType: 'json',
 		success() {
-			openNewPage()
+			//goToLogin()
 		},
 		error() {
 			bootbox.alert({
@@ -81,6 +81,6 @@ function addNewUser(dataJSON) {
 	})
 }
 
-function openNewPage() {
-	window.open('../../../html/user.html', '_self')
+function goToLogin() {
+	window.open('/login', '_self')
 }

@@ -17,6 +17,7 @@ class UserController {
 		} else {
 			return User.getAllUsers(
 				(users) => {
+					console.log(users)
 					if (users.length > 0) {
 						return res.status(HttpStatus.OK).json(users)
 					}
@@ -46,6 +47,7 @@ class UserController {
 		return User.add(req.body,
 			(data) => {
 				if (data) {
+					console.log(data)
 					return res.status(HttpStatus.CREATED).json(req.body)
 				}
 				return res.status(HttpStatus.BAD_REQUEST).json({

@@ -20,9 +20,22 @@ router.get('/signup', (req, res) => {
 
 router.get('/admin', (req, res) => {
 	session = req.session
-	if (session.role === 'admin')
-		return res.render('admin')
-	return res.render('index')
+	// if (session.role === 'admin')
+	return res.render('admin')
+	// return res.render('index')
+})
+
+router.get('/user', (req, res, next) => {
+	session = req.session
+	return res.render('user', {
+		email: session.email,
+		username: session.username
+	})
+})
+
+router.get('/logout', (req, res) => {
+	req.session.destroy()
+	res.redirect('/')
 })
 
 module.exports = router
